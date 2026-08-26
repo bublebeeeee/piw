@@ -1,13 +1,12 @@
 <?php
-
 session_start();
 
-$stored_hash = "6cebdc80833d65aa1a676aca547be555";
+$stored_hash = "6cebdc80833d65aa1a676aca547be555"; // Ganti dengan hash password Anda
+
 if (!isset($_SESSION['logged_in'])) {
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Proses login
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['password'])) {
         $password = $_POST['password'];
-
         if (md5($password) === $stored_hash) {
             $_SESSION['logged_in'] = true;
             header("Refresh:0");
@@ -15,11 +14,130 @@ if (!isset($_SESSION['logged_in'])) {
         }
     }
 
+    // Tampilan login yang keren
     ?>
-    <form method="POST">
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Masuk</button>
-    </form>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Login - Secure Access</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+        body{min-height:100svh;display:flex;justify-content:center;align-items:center;overflow:hidden;background:radial-gradient(circle at center,rgba(0,255,65,.08),transparent 36%),linear-gradient(180deg,#020403,#041108)}
+        .container{--ring-size:min(92vmin,520px);--ring-radius:calc(var(--ring-size)/2);--ring-bar-width:clamp(28px,6vmin,42px);--ring-bar-height:clamp(4px,1vmin,7px);--ring-scale:1.55;--panel-width:clamp(250px,70vw,286px);--badge-size:clamp(150px,36vw,188px);position:relative;width:100vw;height:100svh;display:flex;justify-content:center;align-items:center;overflow:hidden;padding:12px}
+        .container>span{position:absolute;left:calc(50% - var(--ring-radius));top:50%;width:var(--ring-bar-width);height:var(--ring-bar-height);background:#0d2113;border-radius:999px;transform-origin:var(--ring-radius);transform:translateY(-50%) scale(var(--ring-scale)) rotate(calc(var(--i)*(360deg/50)));animation:blink 3s linear infinite;animation-delay:calc(var(--i)*(3s/50));box-shadow:0 0 8px rgba(0,255,65,.14);z-index:1}
+        @keyframes blink{0%{background:#00ff41;box-shadow:0 0 8px #00ff41,0 0 16px #00ff41,0 0 28px rgba(0,255,65,.75)}25%{background:#0d2113;box-shadow:0 0 8px rgba(0,255,65,.14)}}
+        .access-box{position:relative;width:min(100%,calc(var(--panel-width) + 20px));z-index:3;display:flex;justify-content:center;align-items:center}
+        .access-panel{width:var(--panel-width);padding:clamp(13px,3vmin,18px) clamp(11px,2.8vmin,16px) clamp(12px,2.8vmin,16px);border:1px solid rgba(0,255,65,.22);border-radius:clamp(18px,4vmin,22px);background:linear-gradient(180deg,rgba(0,18,7,.58),rgba(0,0,0,.28)),rgba(0,0,0,.18);box-shadow:0 0 22px rgba(0,255,65,.16),inset 0 0 26px rgba(0,255,65,.06);backdrop-filter:blur(8px);position:relative;overflow:hidden}
+        .access-panel:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent,rgba(0,255,65,.08) 48%,transparent 70%);transform:translateX(-100%);animation:sweep 4s ease-in-out infinite;pointer-events:none}
+        .access-panel:after{content:"";position:absolute;inset:0;border-radius:inherit;background:repeating-linear-gradient(to bottom,rgba(0,255,65,.025) 0 1px,transparent 1px 9px);pointer-events:none}
+        @keyframes sweep{0%,45%{transform:translateX(-115%)}70%,100%{transform:translateX(115%)}}
+        .cyber-badge{position:relative;width:var(--badge-size);height:var(--badge-size);margin:0 auto clamp(10px,2.4vmin,16px);clip-path:polygon(25% 6%,75% 6%,100% 50%,75% 94%,25% 94%,0 50%);background:#00ff41;padding:3px;box-shadow:0 0 16px rgba(0,255,65,.9),0 0 38px rgba(0,255,65,.4);animation:badge 2.8s ease-in-out infinite;z-index:2}
+        .cyber-badge-inner{width:100%;height:100%;clip-path:inherit;overflow:hidden;position:relative;background:#031008;display:flex;justify-content:center;align-items:center;padding:clamp(7px,1.8vmin,10px)}
+        .cyber-badge-inner img{width:100%;height:100%;object-fit:contain;object-position:center;display:block;background:#031008;filter:contrast(1.03) brightness(1.01) saturate(1.02);transform:scale(.94)}
+        .cyber-badge-inner:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,255,65,.04),rgba(0,0,0,.01) 40%,rgba(0,0,0,.08));pointer-events:none}
+        .cyber-badge:after{content:"";position:absolute;inset:3px;clip-path:inherit;background:repeating-linear-gradient(to bottom,rgba(0,255,65,.04) 0 1px,transparent 1px 11px);mix-blend-mode:screen;opacity:.28;pointer-events:none;animation:scan 3.2s linear infinite}
+        @keyframes badge{0%,100%{transform:scale(1);box-shadow:0 0 16px rgba(0,255,65,.82),0 0 38px rgba(0,255,65,.36)}50%{transform:scale(1.03);box-shadow:0 0 24px rgba(0,255,65,1),0 0 56px rgba(0,255,65,.55)}}
+        @keyframes scan{to{background-position:0 80px}}
+        #typedtext{position:relative;z-index:2;color:rgba(0,255,65,.95);font-size:clamp(.78rem,2.6vmin,.95rem);font-weight:800;letter-spacing:1.8px;text-transform:uppercase;text-align:center;height:22px;margin:-4px 0 10px;white-space:nowrap;overflow:hidden;border-right:2px solid green;animation:cursorBlink .8s infinite;text-shadow:0 0 8px rgba(0,255,65,.78),0 0 18px rgba(0,255,65,.34)}
+        @keyframes cursorBlink{0%,100%{border-color:green}50%{border-color:transparent}}
+        .access-title{position:relative;z-index:2;text-align:center;margin-bottom:clamp(8px,2.2vmin,12px);color:rgba(0,255,65,.95);font-size:clamp(.66rem,2.2vmin,.76rem);font-weight:700;letter-spacing:clamp(1.5px,.42vmin,2.3px);text-transform:uppercase;text-shadow:0 0 8px rgba(0,255,65,.75),0 0 18px rgba(0,255,65,.3)}
+        form{position:relative;z-index:2;width:100%;max-width:clamp(205px,60vw,238px);display:flex;flex-direction:column;align-items:center;gap:clamp(8px,2vmin,10px);margin:0 auto}
+        #loginbox{display:none;position:relative;z-index:2}
+        .input-box{position:relative;width:100%}
+        .input-box input{width:100%;height:clamp(36px,7.4vmin,40px);padding:0 40px 0 14px;border-radius:12px;border:1.5px solid #194626;outline:none;background:rgba(0,0,0,.46);color:#d9ffe2;font-size:clamp(.82rem,2.45vmin,.9rem);letter-spacing:.3px;transition:.3s;box-shadow:inset 0 0 12px rgba(0,255,65,.05),0 0 10px rgba(0,255,65,.08);backdrop-filter:blur(6px)}
+        .input-box input::placeholder{color:rgba(183,255,197,.68)}
+        .input-box input:focus{border-color:#00ff41;box-shadow:0 0 12px rgba(0,255,65,.42),inset 0 0 14px rgba(0,255,65,.06)}
+        .input-icon{position:absolute;right:13px;top:50%;transform:translateY(-50%);width:17px;height:17px;color:#00ff41;opacity:.78;pointer-events:none;filter:drop-shadow(0 0 6px rgba(0,255,65,.65))}
+        .login-submit{width:100%;height:clamp(36px,7.2vmin,39px);border:0;border-radius:12px;background:linear-gradient(180deg,#11ff56,#00d93a);color:#031006;font-size:clamp(.8rem,2.35vmin,.88rem);font-weight:800;letter-spacing:.9px;cursor:pointer;transition:.25s;box-shadow:0 0 14px rgba(0,255,65,.42),0 0 28px rgba(0,255,65,.2);text-transform:uppercase}
+        .login-submit:hover{transform:translateY(-1px);box-shadow:0 0 18px rgba(0,255,65,.72),0 0 38px rgba(0,255,65,.32)}
+        .system-text{position:relative;z-index:2;margin-top:clamp(8px,2.2vmin,12px);display:flex;justify-content:center;align-items:center;gap:8px;color:rgba(183,255,197,.52);font-size:clamp(.48rem,1.8vmin,.58rem);letter-spacing:clamp(.7px,.25vmin,1.5px);text-transform:uppercase;text-align:center;white-space:nowrap}
+        .footer-dot{width:7px;height:7px;border-radius:50%;background:#00ff41;box-shadow:0 0 8px #00ff41,0 0 18px rgba(0,255,65,.7);animation:dot 1.4s ease-in-out infinite;flex-shrink:0}
+        @keyframes dot{0%,100%{opacity:.5;transform:scale(.85)}50%{opacity:1;transform:scale(1.15)}}
+        @media(max-width:520px){.container{--ring-size:min(96vw,96svh,390px);--ring-scale:1.22;--ring-bar-width:28px;--ring-bar-height:6px;--panel-width:min(63vw,238px);--badge-size:min(35vw,132px)}.access-panel{padding:12px 11px;border-radius:18px}.cyber-badge{margin-bottom:9px}#typedtext{font-size:.72rem;margin:-2px 0 8px;letter-spacing:1.2px}.access-title{margin-bottom:8px}form{max-width:min(55vw,214px);gap:8px}.input-box input,.login-submit{height:36px}.input-box input{font-size:.78rem}.login-submit{font-size:.8rem}.system-text{margin-top:8px;font-size:.48rem;letter-spacing:.6px;gap:6px}.footer-dot{width:6px;height:6px}}
+        @media(max-width:390px){.container{--ring-size:min(97vw,96svh,370px);--ring-scale:1.16;--ring-bar-width:26px;--panel-width:min(61vw,226px);--badge-size:min(34vw,124px)}.access-panel{padding:11px 10px}#typedtext{font-size:.66rem;letter-spacing:1px}form{max-width:min(54vw,202px)}.input-icon{width:15px;height:15px;right:12px}}
+        @media(max-width:330px){.container{--ring-size:min(96vw,94svh,310px);--ring-scale:1.08;--panel-width:205px;--badge-size:106px}form{max-width:182px}#typedtext{font-size:.58rem}.system-text{font-size:.42rem;letter-spacing:.4px}}
+        @media(max-height:560px){.container{--ring-size:min(96vw,96svh,350px);--ring-scale:1.12;--panel-width:220px;--badge-size:112px}.access-panel{padding:10px}.cyber-badge{margin-bottom:8px}#typedtext{font-size:.62rem;margin:-2px 0 7px}.access-title{margin-bottom:7px}form{max-width:192px;gap:7px}.input-box input,.login-submit{height:34px}.system-text{margin-top:7px}}
+        
+        /* Pesan error */
+        .error-msg {
+            color: #ff4444;
+            font-size: 0.75rem;
+            margin-top: 5px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(255,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="ring">
+  <div class="access-box">
+    <div class="access-panel">
+      <div class="cyber-badge">
+        <div class="cyber-badge-inner">
+          <img src="https://bublebeeeee.github.io/piw/saikonglim.png" alt="Secure Access" draggable="false">
+        </div>
+      </div>
+
+      <div id="typedtext"></div>
+
+      <div id="loginbox">
+        <div class="access-title">Access Locked</div>
+
+        <form method="POST">
+          <input type="hidden" name="action" value="login">
+          <div class="input-box">
+            <input type="password" name="password" placeholder="Password" required>
+            <svg class="input-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17 9V7A5 5 0 0 0 7 7v2H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1Zm-8 0V7a3 3 0 0 1 6 0v2H9Zm3 8.75A1.75 1.75 0 1 1 12 14a1.75 1.75 0 0 1 0 3.5Z"/></svg>
+          </div>
+          <?php if ($_SERVER['REQUEST_METHOD'] === 'POST'): ?>
+          <div class="error-msg">Password salah, coba lagi!</div>
+          <?php endif; ?>
+          <input type="submit" class="login-submit" value="Login">
+        </form>
+
+        <div class="system-text">
+          <span class="footer-dot"></span>
+          <span>Encrypted Access Required</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Animasi ring
+const ring=document.getElementById("ring");
+for(let n=0;n<50;n++){
+  const s=document.createElement("span");
+  s.style.setProperty("--i",n);
+  ring.appendChild(s);
+}
+
+// Typing effect
+const text = "SaikongLim";
+const speed = 20; 
+let i = 0;
+const typedtext = document.getElementById("typedtext");
+
+function typeWriter() {
+    if (i < text.length) {
+        typedtext.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+    } else {
+        document.getElementById("loginbox").style.display = "block";
+    }
+}
+
+window.onload = function() {
+    typeWriter();
+};
+</script>
+
+</body>
+</html>
     <?php
     exit();
 }
