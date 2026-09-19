@@ -324,7 +324,7 @@ function navDir(dir){
 </div>
 
 <?php if($cmd_out):?>
-<pre style="background:#1e1e2e;padding:10px;border-radius:4px;overflow:auto;margin-bottom:8px;color:#a6e3a1;border:1px solid #333;white-space:pre-wrap;word-wrap:break-word"><?=htmlspecialchars($cmd_out)?></pre>
+<pre style="background:#000000;padding:10px;border-radius:4px;overflow:auto;margin-bottom:8px;color:#13ff00;border:1px solid #fff;white-space:pre-wrap;word-wrap:break-word"><?=htmlspecialchars($cmd_out)?></pre>
 <?php endif;?>
 <?php if($act=='scanwr'):
 $_sp=isset($_POST['_sp'])?base64_decode($_POST['_sp']):'/var/www/';
