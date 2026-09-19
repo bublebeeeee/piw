@@ -186,8 +186,8 @@ body{background:#2a0f0f;color:#e2e8f0}a{color:#38bdf8;text-decoration:none}
 input[type=text],input[type=file],select{background:#2a0f0f;border:1px solid #553333;color:#fff;padding:5px 8px;border-radius:4px;font-family:monospace;font-size:13px}
 button,input[type=submit]{background:#ff0000;color:#fff;border:none;padding:5px 12px;border-radius:4px;cursor:pointer;font-family:monospace;font-size:13px}
 button:hover{background:#ff6b81}
-table{width:100%;border-collapse:collapse}th{background:#ffffff;padding:6px 10px;text-align:left;border-bottom:2px solid #ff0000}
-td{padding:4px 10px;border-bottom:1px solid #ffffff}tr:hover{background:#ffffff}
+table{width:100%;border-collapse:collapse}th{background:#000000;padding:6px 10px;text-align:left;border-bottom:2px solid #ff0000}
+td{padding:4px 10px;border-bottom:1px solid #ffffff}tr:hover{background:#000000}
 .s{color:#ffffff}.m{background:#0a3d62;padding:8px;border-radius:4px;margin-bottom:8px;color:#0dff00}
 textarea{width:100%;height:400px;background:#2a0f0f;color:#e2e8f0;border:1px solid #553333;padding:8px;font-family:monospace;border-radius:4px}
 .ab{background:#553333;border:none;cursor:pointer;padding:3px 8px;border-radius:3px;font-size:12px;color:#e2e8f0;font-family:monospace}
