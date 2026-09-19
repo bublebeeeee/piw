@@ -182,7 +182,7 @@ $_hascmd=function_exists('system')||function_exists('exec')||function_exists('sh
 *{margin:0;padding:0;box-sizing:border-box;font-family:monospace;font-size:13px}
 body{background:#2a0f0f;color:#e2e8f0}a{color:#38bdf8;text-decoration:none}
 .w{max-width:1200px;margin:0 auto;padding:10px}
-.b{background:#ffffff;padding:8px 12px;border-radius:6px;margin-bottom:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.b{background:#000000;padding:8px 12px;border-radius:6px;margin-bottom:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 input[type=text],input[type=file],select{background:#2a0f0f;border:1px solid #553333;color:#fff;padding:5px 8px;border-radius:4px;font-family:monospace;font-size:13px}
 button,input[type=submit]{background:#ff0000;color:#fff;border:none;padding:5px 12px;border-radius:4px;cursor:pointer;font-family:monospace;font-size:13px}
 button:hover{background:#ff6b81}
