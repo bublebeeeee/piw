@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <div class="promo-block">
     <button class="collapsible">
-        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgmfv-xeHpdpMexKFMOMxNFlH7gpKPBtd583bYt1fj3Q7ESuCexpT0qO2MvoaO0GVat-abEOjYU2HRVNFoLVNOBdZVzjtISOOMI9CPtBp2UZa3a8wHtBVGtIcJawA80GYHawPpBLBrSVVkLPjswBxzeZ_Bbl6RYaGTu896FLuKEON5IN3njRqENmic7F8U/s650/bonus-kita-1.jpg" alt="Bonus New Member 100%">
+        <img src="https://polesimg.com/images/Bonus-Special-New-Member-PolesToto.jpg" alt="Bonus New Member 100%">
     </button>
 
     <div class="promo-content" style="background-color: #1a1a1a; padding: 15px; border-radius: 0 0 8px 8px; line-height: 1.6;">
@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <div class="promo-block">
     <button class="collapsible">
-        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjeFiSB6PBMglxJKNpIitNs1JhA9Zr7mQlgT9SIhahXRGnQ8TIbR7I6CM-_yaYM1_h2CJzESVvuuZ07Z5Xt5Vybnc3c90hyphenhyphen7dHtFfH_LVPTk3haCa7hSgqyAAbnOhqo2_jfn1RjF-VfFk8wAb7xVU-m0PYdltoPAv4X70ZxUe4GusEwZZbp2wmkDLrAUq0/s650/bonus-kita-2.jpg" alt="Garansi Kekalahan MIO500">
+        <img src="https://polesimg.com/images/Bonus-Extra-Deposit-Harian-PolesToto.jpg" alt="Garansi Kekalahan MIO500">
     </button>
 
     <div class="promo-content" style="background-color: #1a1a1a; padding: 15px; border-radius: 0 0 8px 8px; line-height: 1.6;">
@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <div class="promo-block">
     <button class="collapsible">
-        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj8tB33ItOiLhTpCqjhX4yJ84pa_U9eUg8zqQ02bWtBGUYUEsCAPA-KqEGyi_ky3CUppVdhtszeVkew14MfEQze-zctHwOlENvbSQqNANcFU1vSzNRJ5rm4vvfq1cgb5L_y5Vn3WReAdwI6e5pkRZs_d9xl4pCT1cxkjyrCfHrTEjTFx5ugq5ADuv8NYH0/s650/bonus-kita-3.jpg" alt="Bonus New Member 30% MIO500">
+        <img src="https://polesimg.com/images/Bonus-Extra-Ajak-Teman-PolesToto.jpg" alt="Bonus New Member 30% MIO500">
     </button>
 
     <div class="promo-content" style="background-color: #1a1a1a; padding: 15px; border-radius: 0 0 8px 8px; line-height: 1.6;">
@@ -302,7 +302,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <div class="promo-block">
     <button class="collapsible">
-        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgIdcqEO6VI8kO2zCGwJ4-JTu1AM5az1KjY5L5-Ia2QwFSUBfn3muYvlXfILzMG7BWsxwioQ522_GrSPkbu5VEVerEPi0wD5WsLgzfDaTIJRrhbqzPxccOiKKLtG4wAcdF2qOcQmpDKNFxaDqiLKaxqBRj-NuEmF31E5sXSVT5Birwv4rBGmUN7FDKM3_Y/s650/bonus-kita-4.jpg" alt="Bonus Harian MIO500">
+        <img src="https://polesimg.com/images/Bonus-CashBack-Mingguan-PolesToto.jpg" alt="Bonus Harian MIO500">
     </button>
 
     <div class="promo-content" style="background-color: #1a1a1a; padding: 15px; border-radius: 0 0 8px 8px; line-height: 1.6;">
