@@ -5,21 +5,21 @@ document.addEventListener('DOMContentLoaded', function () {
             :root {
                 --first-color: #000;
                 --second-color: #fff;
-                --third-color: #e4ff00;
+                --third-color: #f6f300;
                 --fourth-color: #d2eb00;
             }
             .promo-container-main {
                 width: 100%;
                 max-width: 650px;
                 background: var(--first-color);
-                border: 2px solid #f2ff00;
+                border: 2px solid #faa105;
                 display: block;
                 margin: 20px auto;
                 border-radius: 15px;
                 overflow: hidden;
                 font-family: 'Arial', sans-serif;
                 color: var(--second-color);
-                box-shadow: 0 0 20px rgb(255 247 0 / 30%);
+                box-shadow: 0 0 3px #ffe900 !important;
             }
             .promo-header-img {
                 width: 100%;
@@ -27,8 +27,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 margin: 0;
             }
             .teks-berjaalan {
-                border-bottom: 1px solid #f2ff00;
-                border-top: 1px solid #f2ff00;
+                border-bottom: 1px solid #faa105;
+                border-top: 1px solid #faa105;
                 padding: 8px 0;
                 background: #000;
             }
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 padding: 15px 10px;
                 display: flex;
                 justify-content: center;
-                border-bottom: 1px solid #f2ff00;
+                border-bottom: 1px solid #faa105;
             }
             .menu-item {
                 list-style-type: none;
@@ -58,9 +58,9 @@ document.addEventListener('DOMContentLoaded', function () {
             .menu-item li {
                 flex: 1;
                 max-width: 120px;
-                background: #f2ff00;
+                background: #faa105;
                 color: #000000;
-                border: 1px solid #f2ff00;
+                border: 1px solid #faa105;
                 padding: 10px 5px;
                 font-size: 12px;
                 font-weight: 800;
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 display: none;
                 padding: 20px;
                 background-color: #0a0a0a;
-                border-bottom: 1px solid #f2ff00;
+                border-bottom: 1px solid #faa105;
                 line-height: 1.6;
                 font-size: 13px;
             }
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 margin: 15px 0;
             }
             .promo-table td {
-                border: 1px solid #f2ff00;
+                border: 1px solid #faa105;
                 padding: 10px;
                 text-align: center;
             }
@@ -133,22 +133,30 @@ document.addEventListener('DOMContentLoaded', function () {
                     font-size: 12px;
                 }
             }
+            /* Warna tombol sesuai permintaan */
+            .promo-container-main .menu-item li,
+            .promo-container-main .promo-content a[style*="background"] {
+                background: linear-gradient(to bottom, #f6f300, #ffbb00) !important;
+                color: #000 !important;
+                border: 2px solid #faa105 !important;
+                border-radius: 24px !important;
+                box-shadow: 0 0 3px #ffe900 !important;
+            }
         </style>
         `;
 
         const promoHTML = `
         <div class="promo-container-main">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjgbkN0GWtzXOAwxGn5LG8Gr4gLk9J_L4B4VCB_M0FkPefTykVmwOheGGqcANvHF3mivWnQaKa89pZ7ijb_Aq_NRNie_Tk_8e5yMgf8SfMy-BkrBH5EtouTSFCUaZ25hn_5V3pMv_0z9c4i_LbwsqQ8mNGdigISlN8cCre1Qxzsx-6zNT15hNnVYu6tJRc/s842/banner-live-r.webp" class="promo-header-img">
 
             <div class="teks-berjaalan">
-                <marquee scrollamount="5">SELAMAT DATANG DI MIO500 - SITUS TOGEL & SLOT ONLINE TERPERCAYA - DEPOSIT MINIMAL RP 25.000 - WITHDRAW MINIMAL RP 50.000 - SALAM JACKPOT!</marquee>
+                <marquee scrollamount="5">SELAMAT DATANG DI SITUS POLESTOTO - SITUS TOGEL & SLOT ONLINE TERPERCAYA - DEPOSIT MINIMAL RP 25.000 - WITHDRAW MINIMAL RP 50.000 - SALAM JACKPOT!</marquee>
             </div>
 
             <div class="menu-wrapper">
                 <ul class="menu-item">
                     <li onclick="window.open('/register')">DAFTAR</li>
                     <li onclick="window.open('/login')">LOGIN</li>
-                    <li onclick="window.open('https://direct.lc.chat/19019745/')">LIVECHAT</li>
+                    <li onclick="window.open('https://polesin.link/lcpolestoto')">LIVECHAT</li>
                 </ul>
             </div>
 
@@ -359,7 +367,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <div class="promo-block">
     <button class="collapsible">
-        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgj9HsutALKWI-c4PA_W5jzt0EOkzm20Gacm7SiHXQ2xUonTjxeakuOJl_Q8TzWNzOYmpcBNbS-rMbe2krPl9WAIiOn2CiF3MfWPXOjTDHctw7pY1Vvqx4zOEll2p3odxB-mkmL8Rk-Y0ETKWXHxXZpm2bomWBd6QY0rQ_i32LwkT-GVQHgSPcqtd-89Nk/s650/bonus-kita-5.jpg" alt="Bonus Turnover MIO500">
+        <img src="https://polesimg.com/images/Bonus-Rollingan-Turnover-PolesToto.jpg" alt="Bonus Turnover MIO500">
     </button>
 
     <div class="promo-content" style="background-color: #1a1a1a; padding: 15px; border-radius: 0 0 8px 8px; line-height: 1.6;">
@@ -433,7 +441,7 @@ document.addEventListener('DOMContentLoaded', function () {
             
 <div class="promo-block">
     <button class="collapsible">
-        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjEMpgRVLGqTl0usYzAl6L29qDTHm9KfrxYoQC99LDPVJshAY9HQLL4r0hP4F32qsby33tT3YdnKsouxvWKUqG1B_uiT6Fx5WrUhb6BpnP9AFzpUVDYWHiuc-N6fiA5pS7MTklfXd2gEfS4pGkRJoJXh7LWcmn7xeuxnyT_4A56Dxxnjh8KUETzwdNWNqI/s650/bonus-kita-6.jpg" alt="Cashback Mingguan MIO500">
+        <img src="https://polesimg.com/images/Bonus-Extra-Cashback-SportBook-PolesToto.jpg" alt="Cashback Mingguan MIO500">
     </button>
 
     <div class="promo-content" style="background-color: #1a1a1a; padding: 15px; border-radius: 0 0 8px 8px; line-height: 1.6;">
@@ -1113,7 +1121,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (navbar) {
             navbar.insertAdjacentHTML('afterend', promoStyle + promoHTML);
 
-            // Batasi menjadi 6 gambar promo pertama; banner header tetap tampil.
+            // Batasi menjadi 6 gambar promo pertama.
             document.querySelectorAll('.promo-container-main .promo-block').forEach((promo, index) => {
                 if (index >= 6) promo.remove();
             });
