@@ -1,0 +1,98 @@
+<?php
+/**
+ * Script Generator wget - Input URL → Output wget command
+ */
+
+$wgetCommand = '';
+$error = '';
+$url = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['url'])) {
+    $url = trim($_POST['url']);
+
+    // Validasi URL
+    if (!filter_var($url, FILTER_VALIDATE_URL)) {
+        $error = "❌ URL tidak valid!";
+    } elseif (!preg_match('#^https?://#i', $url)) {
+        $error = "❌ URL harus diawali http:// atau https://";
+    } else {
+        // Ambil nama file dari URL
+        $path = parse_url($url, PHP_URL_PATH);
+        $filename = basename($path);
+
+        // Kalau URL tidak punya nama file (misal: /news/ atau /), pakai nama default
+        if (empty($filename) || $filename === '/' || !preg_match('/\.\w+$/', $filename)) {
+            // Ambil nama domain sebagai nama default
+            $host = parse_url($url, PHP_URL_HOST);
+            $filename = preg_replace('/[^a-z0-9]/i', '_', $host) . '.html';
+        } else {
+            // Ubah ekstensi jadi .html (sesuai permintaan bro)
+            $filename = pathinfo($filename, PATHINFO_FILENAME) . '.html';
+        }
+
+        // Escape untuk keamanan shell
+        $wgetCommand = 'wget -O ' . escapeshellarg($filename) . ' ' . escapeshellarg($url);
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>wget Command Generator</title>
+    <style>
+        body { font-family: system-ui, sans-serif; max-width: 760px; margin: 40px auto; padding: 20px; background: #0f172a; color: #e2e8f0; }
+        h1 { color: #38bdf8; }
+        form { background: #1e293b; padding: 20px; border-radius: 12px; margin-bottom: 20px; }
+        input[type=url] { padding: 12px; width: 100%; box-sizing: border-box; background: #334155; border: 1px solid #475569; border-radius: 8px; color: #fff; font-size: 14px; }
+        input[type=url]:focus { outline: none; border-color: #38bdf8; }
+        button { margin-top: 15px; padding: 10px 24px; background: #38bdf8; color: #0f172a; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px; }
+        button:hover { background: #0ea5e9; }
+        .msg { padding: 12px; border-radius: 8px; margin-bottom: 15px; }
+        .err { background: #7f1d1d; color: #fca5a5; }
+        pre { background: #020617; padding: 18px; border-radius: 8px; color: #4ade80; overflow-x: auto; border: 1px solid #334155; position: relative; font-size: 14px; }
+        .copy-btn { position: absolute; right: 10px; top: 10px; padding: 6px 12px; background: #38bdf8; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: bold; }
+        .copy-btn:hover { background: #0ea5e9; }
+        .info { background: #1e293b; padding: 15px; border-radius: 8px; margin-top: 15px; font-size: 14px; color: #94a3b8; }
+        code { background: #334155; padding: 2px 6px; border-radius: 4px; color: #fbbf24; }
+    </style>
+</head>
+<body>
+    <h1>🚀 wget Command Generator</h1>
+    <p style="color:#94a3b8;">Masukkan URL → otomatis generate perintah <code>wget</code></p>
+
+    <?php if ($error): ?>
+        <div class="msg err"><?= htmlspecialchars($error) ?></div>
+    <?php endif; ?>
+
+    <form method="POST">
+        <input type="url" name="url" placeholder="https://contoh.com/file.html" value="<?= htmlspecialchars($url) ?>" required autofocus>
+        <button type="submit">⚡ Generate wget</button>
+    </form>
+
+    <?php if ($wgetCommand): ?>
+        <h2>💻 Perintah wget:</h2>
+        <pre id="cmdBox"><?= htmlspecialchars($wgetCommand) ?><button class="copy-btn" onclick="copyCmd()">📋 Copy</button></pre>
+
+        <div class="info">
+            <strong>📌 Info:</strong><br>
+            • URL asli: <code><?= htmlspecialchars($url) ?></code><br>
+            • File output: <code><?= htmlspecialchars(pathinfo(explode(' ', $wgetCommand)[2], PATHINFO_BASENAME)) ?></code>
+        </div>
+    <?php endif; ?>
+
+    <script>
+    function copyCmd() {
+        const box = document.getElementById('cmdBox');
+        const clone = box.cloneNode(true);
+        clone.querySelector('.copy-btn').remove();
+        const text = clone.innerText.trim();
+        navigator.clipboard.writeText(text).then(() => {
+            const btn = box.querySelector('.copy-btn');
+            btn.textContent = '✅ Copied!';
+            setTimeout(() => btn.textContent = '📋 Copy', 1500);
+        });
+    }
+    </script>
+</body>
+</html>
