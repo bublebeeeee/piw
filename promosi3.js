@@ -26,54 +26,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 display: block;
                 margin: 0;
             }
-            .teks-berjaalan {
-                border-bottom: 1px solid #faa105;
-                border-top: 1px solid #faa105;
-                padding: 8px 0;
-                background: #000;
-            }
-            .teks-berjaalan marquee {
-                font-size: 14px;
-                text-transform: uppercase;
-                font-weight: bold;
-                display: block;
-                color: var(--second-color);
-            }
-            .menu-wrapper {
-                background: var(--first-color);
-                padding: 15px 10px;
-                display: flex;
-                justify-content: center;
-                border-bottom: 1px solid #faa105;
-            }
-            .menu-item {
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-                display: flex;
-                gap: 10px;
-                width: 100%;
-                justify-content: center;
-            }
-            .menu-item li {
-                flex: 1;
-                max-width: 120px;
-                background: #faa105;
-                color: #000000;
-                border: 1px solid #faa105;
-                padding: 10px 5px;
-                font-size: 12px;
-                font-weight: 800;
-                border-radius: 8px;
-                cursor: pointer;
-                text-transform: uppercase;
-                text-align: center;
-                transition: 0.3s;
-            }
-            .menu-item li:hover {
-                background: var(--third-color);
-                transform: translateY(-2px);
-            }
             .promo-block {
                 width: 100%;
                 margin: 0 !important;
@@ -125,40 +77,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     max-width: 96%;
                     border-radius: 10px;
                 }
-                .menu-item li {
-                    font-size: 10px;
-                    padding: 8px 2px;
-                }
-                .teks-berjaalan marquee {
-                    font-size: 12px;
-                }
-            }
-            /* Warna tombol sesuai permintaan */
-            .promo-container-main .menu-item li,
-            .promo-container-main .promo-content a[style*="background"] {
-                background: linear-gradient(to bottom, #f6f300, #ffbb00) !important;
-                color: #000 !important;
-                border: 2px solid #faa105 !important;
-                border-radius: 24px !important;
-                box-shadow: 0 0 3px #ffe900 !important;
             }
         </style>
         `;
 
         const promoHTML = `
         <div class="promo-container-main">
-
-            <div class="teks-berjaalan">
-                <marquee scrollamount="5">SELAMAT DATANG DI SITUS POLESTOTO - SITUS TOGEL & SLOT ONLINE TERPERCAYA - DEPOSIT MINIMAL RP 25.000 - WITHDRAW MINIMAL RP 50.000 - SALAM JACKPOT!</marquee>
-            </div>
-
-            <div class="menu-wrapper">
-                <ul class="menu-item">
-                    <li onclick="window.open('/register')">DAFTAR</li>
-                    <li onclick="window.open('/login')">LOGIN</li>
-                    <li onclick="window.open('https://polesin.link/lcpolestoto')">LIVECHAT</li>
-                </ul>
-            </div>
 
 <div class="promo-block">
     <button class="collapsible">
@@ -246,12 +170,6 @@ document.addEventListener('DOMContentLoaded', function () {
             </p>
         </div>
 
-        <div style="text-align: center; margin-bottom: 15px;">
-            <a href="https://klikmio.cc/lcmio" style="background: var(--third-color); color: #000; padding: 10px 20px; border-radius: 5px; font-weight: bold; text-decoration: none; font-size: 13px; display: inline-block; text-transform: uppercase;">
-                Klaim Garansi Sekarang 
-            </a>
-        </div>
-
         <p style="font-size: 11px; color: #999; text-align: justify; font-style: italic; border-top: 1px solid #444; padding-top: 8px;">
             <b>NB:</b> Promo hangus jika member sudah melakukan Withdraw atau Deposit ke-2 sebelum klaim. Dilarang keras manipulasi IP atau <i>Hold Spin</i>. Keputusan <b>MIO500</b> adalah Mutlak.
         </p>
@@ -299,12 +217,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 Bonus hangus jika saldo sudah dimainkan sebelum klaim, ada kesamaan IP, atau menggunakan VPN/Proxy. Keputusan <b>MIO500</b> adalah mutlak.
             </p>
         </div>
-
-        <div style="text-align: center;">
-            <a href="https://klikmio.cc/lcmio" style="background: var(--third-color); color: #000; padding: 10px 25px; border-radius: 5px; font-weight: bold; text-decoration: none; font-size: 14px; display: inline-block; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
-                KLAIM BONUS 30% SEKARANG
-            </a>
-        </div>
     </div>
 </div>
 
@@ -351,12 +263,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 <li>Dilarang keras melakukan <b>HOLD SPIN / GANTUNG SPIN</b>.</li>
                 <li>Bermain di luar SLOT (Togel/Bola) = <b>SALDO DITARIK SEMUA!</b></li>
             </ul>
-        </div>
-
-        <div style="text-align: center; margin-top: 15px;">
-            <a href="/" style="background: var(--third-color); color: #000; padding: 8px 25px; border-radius: 5px; font-weight: bold; text-decoration: none; font-size: 13px; display: inline-block;">
-                DEPOSIT & KLAIM HARIAN
-            </a>
         </div>
 
         <p style="font-size: 10px; color: #777; text-align: center; margin-top: 10px;">
@@ -430,12 +336,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 * Pihak <b>MIO500</b> berhak membatalkan bonus jika ditemukan indikasi kecurangan (Bonus Hunter/Safety Bet). Syarat & ketentuan dapat berubah sewaktu-waktu. Keputusan MIO500 adalah Mutlak.
             </p>
         </div>
-
-        <div style="text-align: center; margin-top: 15px;">
-            <a href="/credit-history" style="background: linear-gradient(180deg, #ffd700, #b8860b); color: #000; padding: 10px 30px; border-radius: 25px; font-weight: bold; text-decoration: none; font-size: 14px; display: inline-block; box-shadow: 0 4px 15px rgba(0,0,0,0.4);">
-                MAIN & TINGKATKAN TURNOVER
-            </a>
-        </div>
     </div>
 </div>
             
@@ -495,12 +395,6 @@ document.addEventListener('DOMContentLoaded', function () {
         <p style="font-size: 11px; color: #888; text-align: center; font-style: italic;">
             Keputusan <b>MIO500</b> bersifat Mutlak dan Final. Syarat & ketentuan dapat berubah tanpa pemberitahuan.
         </p>
-
-        <div style="text-align: center; margin-top: 15px;">
-            <a href="/credit-history" style="background: var(--third-color); color: #000; padding: 10px 25px; border-radius: 5px; font-weight: bold; text-decoration: none; font-size: 13px; display: inline-block; text-transform: uppercase;">
-                Cek Riwayat Kekalahan
-            </a>
-        </div>
     </div>
 </div>
 
@@ -545,12 +439,6 @@ document.addEventListener('DOMContentLoaded', function () {
             <p style="font-size: 11px; color: #bbb; margin: 0; line-height: 1.4;">
                 Dilarang melakukan <b>Safety Bet</b> (Bet Kiri-Kanan), Cuci Bil, atau Kesamaan IP Address. Jika terindikasi melakukan kecurangan, pihak <b style="color:var(--third-color);">MIO500</b> berhak membatalkan seluruh bonus dan kemenangan anda.
             </p>
-        </div>
-
-        <div style="text-align: center; margin-top: 20px;">
-            <a href="/sport" style="background: var(--third-color); color: #000; padding: 10px 25px; border-radius: 5px; font-weight: bold; text-decoration: none; font-size: 14px; display: inline-block;">
-                PASANG TARUHAN BOLA
-            </a>
         </div>
 
         <p style="font-size: 11px; color: #777; text-align: center; margin-top: 15px; border-top: 1px solid #333; padding-top: 10px;">
@@ -612,12 +500,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 Dilarang keras adanya kesamaan IP Address, Nama Rekening, atau No.HP antara pengajak dan yang diajak. Jika ditemukan indikasi <b>Bonus Hunter</b> atau manipulasi data, MIO500 akan memblokir akun secara permanen.
             </p>
         </div>
-
-        <div style="text-align: center; margin-top: 20px;">
-            <a href="https://klikmio.cc/utama" style="background: var(--third-color); color: #000; padding: 10px 25px; border-radius: 5px; font-weight: bold; text-decoration: none; font-size: 14px; display: inline-block;">
-                AJAK TEMAN SEKARANG 
-            </a>
-        </div>
     </div>
 </div>
 
@@ -660,12 +542,6 @@ document.addEventListener('DOMContentLoaded', function () {
             <p style="font-size: 11px; color: #ccc; margin: 0; line-height: 1.4; font-style: italic;">
                 Dilarang keras menghapus dan menginstall ulang aplikasi untuk klaim berkali-kali. Kesamaan IP atau manipulasi data akan menyebabkan bonus dan kemenangan dibatalkan secara permanen.
             </p>
-        </div>
-
-        <div style="text-align: center;">
-            <a href="https://klikmio.cc/apkmio" style="background: linear-gradient(180deg, #ffd700, #b8860b); color: #000; padding: 10px 25px; border-radius: 30px; font-weight: bold; text-decoration: none; font-size: 14px; display: inline-block; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);">
-                DOWNLOAD APK SEKARANG 
-            </a>
         </div>
 
         <p style="font-size: 10px; color: #666; text-align: center; margin-top: 15px;">
@@ -711,12 +587,6 @@ document.addEventListener('DOMContentLoaded', function () {
             <p style="font-size: 11px; color: #ccc; margin: 0; line-height: 1.4; font-style: italic;">
                 Dilarang keras ada <b>Kesamaan IP, Nama Rekening, atau Data</b> lainnya. Penggunaan VPN/Proxy/SSH sangat dilarang. Jika ditemukan manipulasi "Self-Referral", pihak <b style="color:var(--third-color);">MIO500</b> akan memblokir permanen ID pengajak dan yang diajak.
             </p>
-        </div>
-
-        <div style="text-align: center;">
-            <a href="https://klikmio.cc/lcmio" style="background: var(--third-color); color: #000; padding: 10px 25px; border-radius: 5px; font-weight: bold; text-decoration: none; font-size: 13px; display: inline-block; text-transform: uppercase;">
-                Klaim Bonus Referal Sekarang
-            </a>
         </div>
 
         <p style="font-size: 11px; color: #777; text-align: center; margin-top: 15px; border-top: 1px solid #333; padding-top: 10px;">
@@ -778,12 +648,6 @@ document.addEventListener('DOMContentLoaded', function () {
             <p style="font-size: 11px; color: #ccc; margin: 0; line-height: 1.4; font-style: italic;">
                 Dilarang keras mendaftarkan akun sendiri sebagai referral (Self-Referral) atau manipulasi data IP. Pelanggaran akan berakibat pemblokiran akun secara permanen tanpa pengecualian.
             </p>
-        </div>
-
-        <div style="text-align: center;">
-            <a href="/my-referral" style="background: var(--third-color); color: #000; padding: 10px 25px; border-radius: 5px; font-weight: bold; text-decoration: none; font-size: 14px; display: inline-block; text-transform: uppercase; box-shadow: 0 4px 10px rgba(255, 215, 0, 0.2);">
-                Ambil Link Referral Anda >
-            </a>
         </div>
 
         <p style="font-size: 10px; color: #777; text-align: center; margin-top: 15px; border-top: 1px solid #333; padding-top: 10px;">
@@ -849,12 +713,6 @@ document.addEventListener('DOMContentLoaded', function () {
             </p>
         </div>
 
-        <div style="text-align: center;">
-            <a href="/my-referral" style="background: var(--third-color); color: #000; padding: 10px 25px; border-radius: 5px; font-weight: bold; text-decoration: none; font-size: 14px; display: inline-block; text-transform: uppercase;">
-                Bagikan Link Referral Anda Ã°Å¸â€â€”
-            </a>
-        </div>
-
         <p style="font-size: 10px; color: #777; text-align: center; margin-top: 15px; border-top: 1px solid #333; padding-top: 10px;">
             Keputusan <b>MIO500</b> bersifat Mutlak dan Final.
         </p>
@@ -916,12 +774,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 * Member hanya bisa klaim 1x sehari (Reset jam 00.00). Promo tidak dapat digabung dengan bonus lain. Segala keputusan <b>MIO500</b> adalah mutlak.
             </p>
         </div>
-
-        <div style="text-align: center;">
-            <a href="https://baganlink.site/61ast" style="background: #0088cc; color: #fff; padding: 10px 20px; border-radius: 5px; font-weight: bold; text-decoration: none; font-size: 13px; display: inline-block;">
-                JOIN TELEGRAM & KLAIM >
-            </a>
-        </div>
     </div>
 </div>
 
@@ -980,12 +832,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 * Dilarang keras Gantung Spin, Bonus Hunter, atau Kesamaan IP. Jika terbukti curang, kemenangan dan bonus akan ditarik oleh pihak MIO500. Keputusan MIO500 adalah mutlak.
             </p>
         </div>
-
-        <div style="text-align: center;">
-            <a href="https://klikmio.cc/lcmio" style="background: var(--third-color); color: #000; padding: 10px 25px; border-radius: 5px; font-weight: bold; text-decoration: none; font-size: 13px; display: inline-block; text-transform: uppercase;">
-                Klaim Freespin Sekarang Ã°Å¸Å½Â°
-            </a>
-        </div>
     </div>
 </div>
 
@@ -1031,12 +877,6 @@ document.addEventListener('DOMContentLoaded', function () {
             <p style="font-size: 11px; color: #ccc; margin: 0; line-height: 1.4;">
                 Dilarang ada Tim yang sama, Safety Bet, Kesamaan IP, atau data tidak valid. Virtual Sports & E-Soccer tidak dihitung dalam event ini.
             </p>
-        </div>
-
-        <div style="text-align: center;">
-            <a href="https://klikmio.cc/lcmio" style="background: var(--third-color); color: #000; padding: 10px 25px; border-radius: 5px; font-weight: bold; text-decoration: none; font-size: 13px; display: inline-block; text-transform: uppercase; box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);">
-                Klaim Hadiah Parlay >
-            </a>
         </div>
 
         <p style="font-size: 10px; color: #777; text-align: center; margin-top: 15px; border-top: 1px solid #333; padding-top: 10px;">
@@ -1102,12 +942,6 @@ document.addEventListener('DOMContentLoaded', function () {
             <p style="color: #ff3333; font-weight: bold; font-size: 11px; margin: 0; line-height: 1.4; font-style: italic;">
                 * Dilarang keras ada kesamaan IP, Data Bank, atau Email. Bonus tidak dapat digabung dengan promo lain. Keputusan <b>MIO500</b> adalah mutlak.
             </p>
-        </div>
-
-        <div style="text-align: center; margin-top: 15px;">
-            <a href="https://klikmio.cc/lcmio" style="background: var(--third-color); color: #000; padding: 10px 25px; border-radius: 5px; font-weight: bold; text-decoration: none; font-size: 13px; display: inline-block; text-transform: uppercase;">
-                Klaim Winstreak Ayam
-            </a>
         </div>
     </div>
 </div>
